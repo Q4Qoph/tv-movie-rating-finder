@@ -1,8 +1,8 @@
-// components/RatingBadge.tsx
+// components/RatingBadge.tsx (Updated for TMDb)
 'use client';
 
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star } from 'lucide-react'; // or your chosen icon library
 
 interface RatingBadgeProps {
   rating: string | undefined;
@@ -17,7 +17,7 @@ const RatingBadge: React.FC<RatingBadgeProps> = ({
   votes, 
   darkMode = false 
 }) => {
-  if (!rating || rating === 'N/A' || rating === '') return null;
+  if (!rating || rating === 'N/A' || rating === '' || rating === '0') return null;
 
   const getSourceConfig = () => {
     switch (source) {
@@ -26,7 +26,8 @@ const RatingBadge: React.FC<RatingBadgeProps> = ({
           name: 'IMDb',
           bgColor: 'bg-yellow-500',
           textColor: 'text-black',
-          icon: <Star className="h-4 w-4 fill-current" />
+          icon: <Star className="h-4 w-4 fill-current" />,
+          suffix: '/10'
         };
       case 'metacritic':
         const score = parseInt(rating);
@@ -49,7 +50,15 @@ const RatingBadge: React.FC<RatingBadgeProps> = ({
           name: 'TMDb',
           bgColor: 'bg-blue-500',
           textColor: 'text-white',
-          suffix: '/10'
+          suffix: '/10',
+          icon: <Star className="h-4 w-4 fill-current" />
+        };
+      default:
+        return {
+          name: 'Rating',
+          bgColor: 'bg-gray-500',
+          textColor: 'text-white',
+          suffix: ''
         };
     }
   };

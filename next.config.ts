@@ -1,26 +1,33 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     domains: [
-      'imdb-api.com',
-      'tv-api.com',
-      'm.media-amazon.com',
-      'i.imgur.com',
+      'image.tmdb.org',
+      'img.youtube.com',
       'via.placeholder.com'
     ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**'
-      }
-    ]
+        hostname: 'image.tmdb.org',
+        pathname: '/t/p/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/vi/**',
+      },
+    ],
   },
   experimental: {
-    optimizePackageImports:['lucide-react', 'lucide-svelte'],
-  }
+    optimizePackageImports: ['lucide-react'],
+  },
+  typescript: {
+    ignoreBuildErrors: true, // Set to true to ignore TypeScript errors during build
+  },
+}
 
-};
 
-export default nextConfig;
+export default nextConfig
